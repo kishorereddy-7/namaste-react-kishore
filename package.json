@@ -1,0 +1,33 @@
+{
+  "name": "y",
+  "version": "1.0.0",
+  "description": "This is Namaste React by Kishore",
+  "main": "App.js",
+  "scripts": {
+    "test": "jest",
+    "serve": "npx parcel index.html"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kishorereddy-7/namaste-react-kishore.git"
+  },
+  "keywords": [
+    "react",
+    "namaste",
+    "react"
+  ],
+  "author": "Kishore",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/kishorereddy-7/namaste-react-kishore/issues"
+  },
+  "homepage": "https://github.com/kishorereddy-7/namaste-react-kishore#readme",
+  "devDependencies": {
+    "parcel": "^2.9.1",
+    "process": "^0.11.10"
+  },
+  "dependencies": {
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0"
+  }
+}
