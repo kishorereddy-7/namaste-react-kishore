@@ -1,4 +1,7 @@
-const RestaurantCard = () => {
+import { RES_IMAGE_URL } from "./utils/contants";
+
+const RestaurantCard = (props) => {
+  const { data } = props?.details;
   return (
     <div
       className="res-card"
@@ -9,12 +12,12 @@ const RestaurantCard = () => {
       <img
         className="res-logo"
         alt="res-logo"
-        src="https://res.cloudinary.com/swiggy/image/upload/fl_lossy,f_auto,q_auto,w_508,h_320,c_fill/o5bbufmcjoqdfvtm7r1n"
+        src={RES_IMAGE_URL + data.cloudinaryImageId}
       />
-      <h3>Meghana Foods</h3>
-      <h4>Briyani, North Indian, Asian</h4>
-      <h4>4.4 starts</h4>
-      <h4>38 minutes</h4>
+      <h3>{data.name}</h3>
+      <h4>{data.cuisines?.join(",")}</h4>
+      <h4>{data.avgRating}</h4>
+      <h4>{data.deliveryTime} minutes</h4>
     </div>
   );
 };
