@@ -61,3 +61,23 @@
   background-color: #f0f0f0;
   margin: 20px;
 }
+
+.login {
+  padding: 0 20px;
+  cursor: pointer;
+}
+
+.filter {
+  display: flex;
+  
+}
+
+.disable-link-style {
+  text-decoration: none;
+  color: black;
+}
+
+.user-card {
+  padding: 10px;
+  border: 1px solid black;
+}
