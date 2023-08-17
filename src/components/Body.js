@@ -1,14 +1,19 @@
-import { useEffect, useState } from "react";
-import RestaurantCard from "./RestaurantCard";
+import { useContext, useEffect, useState } from "react";
+import RestaurantCard, { withPromtedLabel } from "./RestaurantCard";
 import Shimmer from "./Shimmer";
 import { Link } from "react-router-dom";
 import useOnlineStatus from "./utils/useOnlineStatus";
+import { RES_ENUM } from "./utils/contants.js";
+import UserContext from "./utils/UserContext";
 
 const Body = () => {
   const [resData, setResData] = useState([]);
   const [searchText, setSearchText] = useState("");
   const [filteredResturent, setFilteredResturent] = useState([]);
 
+  const userDetails = useContext(UserContext);
+
+  const RestaurantCardPromoted = withPromtedLabel(RestaurantCard);
   useEffect(() => {
     fetchData();
   }, []);
@@ -18,8 +23,13 @@ const Body = () => {
       "https://www.swiggy.com/dapi/restaurants/list/v5?lat=19.0759837&lng=72.8776559&page_type=DESKTOP_WEB_LISTING"
     );
     const rdata = await data.json();
-    setResData(rdata?.data?.cards[2]?.data?.data?.cards);
-    setFilteredResturent(rdata?.data?.cards[2]?.data?.data?.cards);
+    const resData = rdata?.data?.cards?.find(
+      (item) => item?.card?.card?.id === RES_ENUM
+    );
+    setResData(resData?.card?.card?.gridElements?.infoWithStyle?.restaurants);
+    setFilteredResturent(
+      resData?.card?.card?.gridElements?.infoWithStyle?.restaurants
+    );
   };
 
   const onClickTopRatedFilter = () => {
@@ -40,34 +50,56 @@ const Body = () => {
     return <h1>Looks Like Your offline Please Check Your Internet</h1>;
   }
 
+  const changeInput = (e) => {
+    userDetails?.setUserInfo(e.target.value);
+  };
+
   return resData?.length === 0 ? (
     <Shimmer />
   ) : (
     <div className="body">
-      <div className="filter">
-        <div className="search">
+      <div className="flex items-center">
+        <div className="p-4 m-4">
           <input
             type="text"
-            className="search-box"
+            className="border border-solid border-black"
             onChange={(e) => setSearchText(e.target.value)}
             value={searchText}
           />
-          <button onClick={onClickSearch}>Search</button>
-        </div>
-        <button className="filter-btn" onClick={onClickTopRatedFilter}>
-          Top Rated Restaurants
-        </button>
-      </div>
-      <div className="res-container">
-        {filteredResturent?.map((res) => (
-          <Link
-            className="disable-link-style"
-            key={res?.data?.id}
-            to={"/restaurants/" + res?.data?.id}
+          <button
+            className="px-4 py-2 bg-green-100 m-4 rounded-lg"
+            onClick={onClickSearch}
           >
-            <RestaurantCard details={res} />
-          </Link>
-        ))}
+            Search
+          </button>
+        </div>
+        <div className="p-4 m-4">
+          <button
+            className="px-4 py-2 bg-gray-100"
+            onClick={onClickTopRatedFilter}
+          >
+            Top Rated Restaurants
+          </button>
+        </div>
+        <label>User Name</label>
+        <input className="border border-black p-2" onChange={changeInput} />
+      </div>
+      <div className="flex flex-wrap">
+        {filteredResturent?.map((res) => {
+          return (
+            <Link
+              className="disable-link-style"
+              key={res?.info?.id}
+              to={"/restaurants/" + res?.info?.id}
+            >
+              {res?.info?.promoted ? (
+                <RestaurantCardPromoted details={res?.info} />
+              ) : (
+                <RestaurantCard details={res?.info} />
+              )}
+            </Link>
+          );
+        })}
       </div>
     </div>
   );

@@ -6,3 +6,5 @@ export const RES_IMAGE_URL =
 
 export const RES_DETAILS_BY_ID =
   "https://www.swiggy.com/dapi/menu/pl?page-type=REGULAR_MENU&complete-menu=true&lat=19.130405&lng=72.8660404&restaurantId=";
+
+export const RES_ENUM = "restaurant_grid_listing";
