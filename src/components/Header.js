@@ -16,7 +16,7 @@ const Header = () => {
 
   const userDetails = useContext(UserContext);
 
-  const cartDetails = useSelector((store) => store.cart);
+  const cartDetails = useSelector((store) => store.cart.items);
 
   return (
     <div className="flex justify-between items-center bg-pink-600 shadow-lg mb-2">
@@ -39,7 +39,7 @@ const Header = () => {
             <Link to="/grocery">Grocery</Link>
           </li>
           <li className="px-4 font-bold text-xl">
-            <Link to="/cart">Cart ({cartDetails?.items?.length} items) </Link>
+            <Link to="/cart">Cart ({cartDetails?.length} items) </Link>
           </li>
           <button className="login px-4" onClick={onClickLogin}>
             {btnName}

@@ -4,7 +4,7 @@ import { useDispatch } from "react-redux";
 import { clearCart } from "./utils/cartSlice";
 
 const Cart = () => {
-  const cartItems = useSelector((store) => store.cart);
+  const cartItems = useSelector((store) => store.cart?.items);
   const dispatch = useDispatch();
 
   handleClearCart = () => {
@@ -21,7 +21,7 @@ const Cart = () => {
         >
           Clear Cart
         </button>
-        <ItemList items={cartItems?.items} />
+        <ItemList items={cartItems} />
       </div>
     </div>
   );
