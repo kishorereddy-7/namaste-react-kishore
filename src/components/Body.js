@@ -39,7 +39,7 @@ const Body = () => {
 
   const onClickSearch = () => {
     const filteredList = resData.filter((res) =>
-      res.data.name.toLowerCase().includes(searchText.toLowerCase())
+      res?.info?.name.toLowerCase().includes(searchText.toLowerCase())
     );
     setFilteredResturent(filteredList);
   };
@@ -65,8 +65,10 @@ const Body = () => {
             className="border border-solid border-black"
             onChange={(e) => setSearchText(e.target.value)}
             value={searchText}
+            data-testid="search-input"
           />
           <button
+            name="Search"
             className="px-4 py-2 bg-green-100 m-4 rounded-lg"
             onClick={onClickSearch}
           >
